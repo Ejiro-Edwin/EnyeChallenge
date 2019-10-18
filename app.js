@@ -49,7 +49,7 @@ mongoose
 const port = process.env.PORT || 10000;
 
 //Use routes
-app.use('/api/users', users);
+app.use('/api/v1/users', users);
 
 //Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
