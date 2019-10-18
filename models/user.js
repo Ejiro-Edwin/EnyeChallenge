@@ -1,8 +1,8 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi')
+Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     Firstname: {
         type: String,
         required: true,

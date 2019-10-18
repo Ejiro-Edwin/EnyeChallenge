@@ -1,8 +1,8 @@
 const express = require ('express');
 const userController = require ('../controllers/usercontroller');
 
-let router = express.Router ();
-router.use (express.json ());
+let router = express.Router();
+router.use(express.json());
 
 // Create a new user
 router.post ('/addUser', userController.create);
@@ -18,3 +18,5 @@ router.put ('/updateUser/:id', userController.update);
 
 // Delete a user with id
 router.delete ('/removeUser/:id', userController.delete);
+
+module.exports = router ;

@@ -1,4 +1,4 @@
-const {usermodel, validate} = require ('../models/user');
+const {User, validate} = require ('../models/user');
 
 
 // Create and Save a new User
@@ -7,7 +7,7 @@ exports.create = async (req, res) => {
   if (result.error)
     return res.status (400).send (result.error.details[0].message);
 
-  const user = new usermodel ({
+  const user = new User ({
     Firstname: req.body.Firstname,
     Lastname: req.body.Lastname,
     Birthday: req.body.Birthday,
@@ -22,18 +22,29 @@ exports.create = async (req, res) => {
 
 // Retrieve and return all users from the database.
 exports.findAll = async (req, res) => {
-  const user = await usermodel.find ().sort ('Lastname');
-  res.send (user);
+  try{
+    const user = await User.find();
+    res.send (user);
+  }
+  catch(err){
+    res.send('error:'+err)
+  }
+  
 };
 
 
 
 // Find a single user with a id
 exports.findOne = async (req, res) => {
-  const user = await usermodel.findById (req.params.id);
-  if (!user)
-    return res.status (404).send ('The user with the given ID was not found');
-  res.send (user);
+  try{
+    const user = await User.findById(req.params.id);
+    if (!user)
+      return res.status (404).send ('The user with the given ID was not found');
+    res.send (user);
+  }
+  catch(err){
+    res.send('error:'+err)
+  }
 };
 
 
@@ -44,7 +55,7 @@ exports.update = async (req, res) => {
   if (result.error)
     return res.status (400).send (result.error.details[0].message);
   let updatedData = req.body;
-  const user = await usermodel.findByIdAndUpdate (updatedData, {
+  const user = await User.findByIdAndUpdate (updatedData, {
     where: {
       _id: req.params.id,
     },
@@ -63,7 +74,7 @@ exports.update = async (req, res) => {
 
 // Delete a user with the specified id in the request
 exports.delete = async (req, res) => {
-  const user = await usermodel.findByIdAndRemove (req.params.id);
+  const user = await User.findByIdAndRemove (req.params.id);
   if (!user)
     return res.status (404).send ('The user with the given ID was not found');
 
