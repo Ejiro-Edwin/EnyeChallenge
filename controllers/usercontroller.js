@@ -54,19 +54,21 @@ exports.update = async (req, res) => {
   const result = validate (req.body); //validate
   if (result.error)
     return res.status (400).send (result.error.details[0].message);
-  let updatedData = req.body;
-  const user = await User.findByIdAndUpdate (updatedData, {
-    where: {
-      _id: req.params.id,
-    },
-  });
+  const user = await User.findByIdAndUpdate (req.params.id, {
+    Firstname: req.body.Firstname,
+    Lastname: req.body.Lastname,
+    Birthday: req.body.Birthday,
+    Age: req.body.Age,
+    Hobby: req.body.Hobby,
+  },{ new: true }
+  );
 
   if (!user)
     return res
       .status (404)
-      .send ('The invoice with the given ID was not found');
+      .send ('The user with the given ID was not found');
 
-  res.send (movie);
+  res.send (user);
 };
 
 

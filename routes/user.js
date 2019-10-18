@@ -5,18 +5,18 @@ let router = express.Router();
 router.use(express.json());
 
 // Create a new user
-router.post ('/addUser', userController.create);
+router.post ('/', userController.create);
 
 // Retrieve all user
-router.get ('/getUser', userController.findAll);
+router.get ('/', userController.findAll);
 
 // Retrieve a single user with id
-router.get ('/getUser/:id', userController.findOne);
+router.get ('/:id', userController.findOne);
 
 // Update a user with id
-router.put ('/updateUser/:id', userController.update);
+router.put ('/:id', userController.update);
 
 // Delete a user with id
-router.delete ('/removeUser/:id', userController.delete);
+router.delete ('/:id/removeUser', userController.delete);
 
 module.exports = router ;
